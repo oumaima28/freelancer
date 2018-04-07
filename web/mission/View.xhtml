@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MissionViewDlg" widgetVar="MissionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewMissionTitle}">
+            <h:form id="MissionViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{missionController.selected != null}">
+                       
+                        <h:outputText value="#{bundle.ViewMissionLabel_titre}"/>
+                        <h:outputText value="#{missionController.selected.titre}" title="#{bundle.ViewMissionTitle_titre}"/>
+                        <h:outputText value="#{bundle.ViewMissionLabel_avancement}"/>
+                        <h:outputText value="#{missionController.selected.avancement}" title="#{bundle.ViewMissionTitle_avancement}"/>
+                        <h:outputText value="#{bundle.ViewMissionLabel_commentaire}"/>
+                        <h:outputText value="#{missionController.selected.commentaire}" title="#{bundle.ViewMissionTitle_commentaire}"/>
+                        <h:outputText value="#{bundle.ViewMissionLabel_minBudget}"/>
+                        <h:outputText value="#{missionController.selected.minBudget}" title="#{bundle.ViewMissionTitle_minBudget}"/>
+                        <h:outputText value="#{bundle.ViewMissionLabel_maxBudget}"/>
+                        <h:outputText value="#{missionController.selected.maxBudget}" title="#{bundle.ViewMissionTitle_maxBudget}"/>
+                        <h:outputText value="#{bundle.ViewMissionLabel_dateAcceptation}"/>
+                        <h:outputText value="#{missionController.selected.dateAcceptation}" title="#{bundle.ViewMissionTitle_dateAcceptation}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMissionLabel_datePublication}"/>
+                        <h:outputText value="#{missionController.selected.datePublication}" title="#{bundle.ViewMissionTitle_datePublication}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMissionLabel_dateLimite}"/>
+                        <h:outputText value="#{missionController.selected.dateLimite}" title="#{bundle.ViewMissionTitle_dateLimite}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMissionLabel_recruteur}"/>
+                        <h:outputText value="#{missionController.selected.recruteur.nom}" title="#{bundle.ViewMissionTitle_recruteur}"/>
+                        <h:outputText value="#{bundle.ViewMissionLabel_devise}"/>
+                        <h:outputText value="#{missionController.selected.devise.nom}" title="#{bundle.ViewMissionTitle_devise}"/>
+                        <h:outputText value="#{bundle.ViewMissionLabel_categorie}"/>
+                        <h:outputText value="#{missionController.selected.categorie.nom}" title="#{bundle.ViewMissionTitle_categorie}"/>
+                        <h:outputText value="#{bundle.ViewMissionLabel_langue}"/>
+                        <h:outputText value="#{missionController.selected.langue.nom}" title="#{bundle.ViewMissionTitle_langue}"/>
+                        <h:outputText value="#{bundle.ViewMissionLabel_diplome}"/>
+                        <h:outputText value="#{missionController.selected.diplome.niveau}" title="#{bundle.ViewMissionTitle_diplome}"/>
+                       
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="MissionViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

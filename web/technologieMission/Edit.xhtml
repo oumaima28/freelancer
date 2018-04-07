@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TechnologieMissionEditDlg" widgetVar="TechnologieMissionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTechnologieMissionTitle}">
+            <h:form id="TechnologieMissionEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{technologieMissionController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTechnologieMissionLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{technologieMissionController.selected.nom}" title="#{bundle.EditTechnologieMissionTitle_nom}" />
+                        <p:outputLabel value="#{bundle.EditTechnologieMissionLabel_mission}" for="mission" />
+                        <p:selectOneMenu id="mission" value="#{technologieMissionController.selected.mission}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{missionController.itemsAvailableSelectOne}"
+                                           var="missionItem"
+                                           itemValue="#{missionItem}" itemLabel="#{missionItem.titre}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTechnologieMissionLabel_technologie}" for="technologie" />
+                        <p:selectOneMenu id="technologie" value="#{technologieMissionController.selected.technologie}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{technologieController.itemsAvailableSelectOne}"
+                                           var="technologieItem"
+                                           itemValue="#{technologieItem}" itemLabel="#{technologieItem.nom}"/>
+                        </p:selectOneMenu>
+                      
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{technologieMissionController.update}" value="#{bundle.Save}" update="display,:TechnologieMissionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TechnologieMissionEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TechnologieMissionEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

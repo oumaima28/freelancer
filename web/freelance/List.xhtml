@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListFreelanceTitle}"></h:outputText>
+        </ui:define>
+ 
+        <ui:define name="body">
+            
+         <h:form>
+                
+            <h:panelGroup>
+            
+                        <p:panelGrid columns="6" >
+                        
+                        <p:outputLabel value="#{bundle.CreateFreelanceLabel_minTarif}" for="min" />
+                        <p:inputText id="min" value="#{freelanceController.min}" title="#{bundle.CreateFreelanceTitle_minTarif}" />
+                        
+                        <p:outputLabel value="#{bundle.CreateFreelanceLabel_maxTarif}" for="max" />
+                        <p:inputText id="max" value="#{freelanceController.max}" title="#{bundle.CreateFreelanceTitle_maxTarif}" />
+                       
+                       
+                        <p:outputLabel value="#{bundle.CreateFreelanceLabel_Pays}" for="pays" />
+                        <p:selectOneMenu id="pays" value="#{freelanceController.pays}" >
+                            <f:selectItems value="#{paysController.itemsAvailableSelectOne}"
+                                           var="paysItem"
+                                           itemValue="#{paysItem}" itemLabel="#{paysItem.nom}" />
+                        </p:selectOneMenu>
+                        
+                         <p:outputLabel value="#{bundle.CreateFreelanceLabel_nom}" for="name" />
+                         <p:inputText id="name" value="#{freelanceController.name}" title="#{bundle.CreateFreelanceTitle_nom}" />
+                       
+                        <p:commandButton  actionListener="#{freelanceController.search()}" value="Search" update=":FreelanceListForm:datalist"/>
+                   </p:panelGrid>
+            </h:panelGroup>
+                </h:form>
+        
+        
+            <h:form id="FreelanceListForm">
+                <p:panel header="#{bundle.ListFreelanceTitle}">
+                    <p:dataTable id="datalist" value="#{freelanceController.items}" var="item"
+                                 selectionMode="single" selection="#{freelanceController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFreelanceTitle_nom}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nom}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFreelanceTitle_prenom}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prenom}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFreelanceTitle_tel}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tel}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFreelanceTitle_tarif}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tarif}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFreelanceTitle_devise}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.devise.nom}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFreelanceTitle_diplome}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.diplome.nom}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFreelanceTitle_pays}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pays.nom}"/>
+                        </p:column>
+                       
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFreelanceTitle_user}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.user.login}"/>
+                        </p:column>
+                      
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{freelanceController.prepareCreate}" update=":FreelanceCreateForm" oncomplete="PF('FreelanceCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":FreelanceViewForm" oncomplete="PF('FreelanceViewDialog').show()" disabled="#{empty freelanceController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":FreelanceEditForm" oncomplete="PF('FreelanceEditDialog').show()" disabled="#{empty freelanceController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{freelanceController.destroy}" update=":growl,datalist" disabled="#{empty freelanceController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+       
+            </ui:define>
+    </ui:composition>
+
+</html>

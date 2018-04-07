@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RecruteurCreateDlg" widgetVar="RecruteurCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateRecruteurTitle}">
+            <h:form id="RecruteurCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{recruteurController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateRecruteurLabel_prenom}" for="prenom" />
+                        <p:inputText id="prenom" value="#{recruteurController.selected.prenom}" title="#{bundle.CreateRecruteurTitle_prenom}" />
+                        <p:outputLabel value="#{bundle.CreateRecruteurLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{recruteurController.selected.nom}" title="#{bundle.CreateRecruteurTitle_nom}" />
+                        <p:outputLabel value="#{bundle.CreateRecruteurLabel_tel}" for="tel" />
+                        <p:inputText id="tel" value="#{recruteurController.selected.tel}" title="#{bundle.CreateRecruteurTitle_tel}" />
+                        <p:outputLabel value="#{bundle.CreateRecruteurLabel_pays}" for="pays" />
+                        <p:selectOneMenu id="pays" value="#{recruteurController.selected.pays}" >
+                            <f:selectItems value="#{paysController.itemsAvailableSelectOne}"
+                                           var="paysItem"
+                                           itemValue="#{paysItem}" itemLabel="#{paysItem.nom}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateRecruteurLabel_admin}" for="admin" />
+                        <p:selectOneMenu id="admin" value="#{recruteurController.selected.admin}" >
+                            <f:selectItems value="#{adminController.itemsAvailableSelectOne}"
+                                           var="adminItem"
+                                           itemValue="#{adminItem}" itemLabel="#{adminItem.nom}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateRecruteurLabel_user}" for="user" />
+                        <p:selectOneMenu id="user" value="#{recruteurController.selected.user}" >
+                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
+                                           var="userItem"
+                                           itemValue="#{userItem}" itemLabel="#{userItem.login}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateRecruteurLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{recruteurController.selected.id}" title="#{bundle.CreateRecruteurTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{recruteurController.create}" value="#{bundle.Save}" update="display,:RecruteurListForm:datalist,:growl" oncomplete="handleSubmit(args,'RecruteurCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="RecruteurCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

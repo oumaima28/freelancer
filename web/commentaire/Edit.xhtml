@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CommentaireEditDlg" widgetVar="CommentaireEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCommentaireTitle}">
+            <h:form id="CommentaireEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{commentaireController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditCommentaireLabel_text}" for="text" />
+                        <p:inputText id="text" value="#{commentaireController.selected.text}" title="#{bundle.EditCommentaireTitle_text}" />
+                        <p:outputLabel value="#{bundle.EditCommentaireLabel_mission}" for="mission" />
+                        <p:selectOneMenu id="mission" value="#{commentaireController.selected.mission}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{missionController.itemsAvailableSelectOne}"
+                                           var="missionItem"
+                                           itemValue="#{missionItem}" itemLabel="#{missionItem.titre}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditCommentaireLabel_freelance}" for="freelance" />
+                        <p:selectOneMenu id="freelance" value="#{commentaireController.selected.freelance}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{freelanceController.itemsAvailableSelectOne}"
+                                           var="freelanceItem"
+                                           itemValue="#{freelanceItem}" itemLabel="#{freelanceItem.nom}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{commentaireController.update}" value="#{bundle.Save}" update="display,:CommentaireListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CommentaireEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CommentaireEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MissionEditDlg" widgetVar="MissionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditMissionTitle}">
+            <h:form id="MissionEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{missionController.selected != null}">
+                        
+                        <p:outputLabel value="#{bundle.EditMissionLabel_titre}" for="titre" />
+                        <p:inputText id="titre" value="#{missionController.selected.titre}" title="#{bundle.EditMissionTitle_titre}" />
+                        <p:outputLabel value="#{bundle.EditMissionLabel_avancement}" for="avancement" />
+                        <p:inputText id="avancement" value="#{missionController.selected.avancement}" title="#{bundle.EditMissionTitle_avancement}" />
+                        <p:outputLabel value="#{bundle.EditMissionLabel_commentaire}" for="commentaire" />
+                        <p:inputText id="commentaire" value="#{missionController.selected.commentaire}" title="#{bundle.EditMissionTitle_commentaire}" />
+                        <p:outputLabel value="#{bundle.EditMissionLabel_minBudget}" for="minBudget" />
+                        <p:inputText id="minBudget" value="#{missionController.selected.minBudget}" title="#{bundle.EditMissionTitle_minBudget}" />
+                        <p:outputLabel value="#{bundle.EditMissionLabel_maxBudget}" for="maxBudget" />
+                        <p:inputText id="maxBudget" value="#{missionController.selected.maxBudget}" title="#{bundle.EditMissionTitle_maxBudget}" />
+                        <p:outputLabel value="#{bundle.EditMissionLabel_dateAcceptation}" for="dateAcceptation" />
+                        <p:calendar id="dateAcceptation" pattern="MM/dd/yyyy" value="#{missionController.selected.dateAcceptation}" title="#{bundle.EditMissionTitle_dateAcceptation}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditMissionLabel_datePublication}" for="datePublication" />
+                        <p:calendar id="datePublication" pattern="MM/dd/yyyy" value="#{missionController.selected.datePublication}" title="#{bundle.EditMissionTitle_datePublication}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditMissionLabel_dateLimite}" for="dateLimite" />
+                        <p:calendar id="dateLimite" pattern="MM/dd/yyyy" value="#{missionController.selected.dateLimite}" title="#{bundle.EditMissionTitle_dateLimite}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditMissionLabel_recruteur}" for="recruteur" />
+                        <p:selectOneMenu id="recruteur" value="#{missionController.selected.recruteur}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{recruteurController.itemsAvailableSelectOne}"
+                                           var="recruteurItem"
+                                           itemValue="#{recruteurItem}" itemLabel="#{recruteurItem.nom}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditMissionLabel_devise}" for="devise" />
+                        <p:selectOneMenu id="devise" value="#{missionController.selected.devise}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{deviseController.itemsAvailableSelectOne}"
+                                           var="deviseItem"
+                                           itemValue="#{deviseItem}" itemLabel="#{deviseItem.nom}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditMissionLabel_categorie}" for="categorie" />
+                        <p:selectOneMenu id="categorie" value="#{missionController.selected.categorie}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{categorieController.itemsAvailableSelectOne}"
+                                           var="categorieItem"
+                                           itemValue="#{categorieItem}" itemLabel="#{categorieItem.nom}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditMissionLabel_langue}" for="langue" />
+                        <p:selectOneMenu id="langue" value="#{missionController.selected.langue}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{langueController.itemsAvailableSelectOne}"
+                                           var="langueItem"
+                                           itemValue="#{langueItem}" itemLabel="#{langueItem.nom}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditMissionLabel_diplome}" for="diplome" />
+                        <p:selectOneMenu id="diplome" value="#{missionController.selected.diplome}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{diplomeController.itemsAvailableSelectOne}"
+                                           var="diplomeItem"
+                                           itemValue="#{diplomeItem}" itemLabel="#{diplomeItem.niveau}"/>
+                        </p:selectOneMenu>
+                      
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{missionController.update}" value="#{bundle.Save}" update="display,:MissionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MissionEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MissionEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

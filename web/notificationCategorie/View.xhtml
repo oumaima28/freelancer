@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="NotificationCategorieViewDlg" widgetVar="NotificationCategorieViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewNotificationCategorieTitle}">
+            <h:form id="NotificationCategorieViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{notificationCategorieController.selected != null}">
+                        <h:outputText value="#{bundle.ViewNotificationCategorieLabel_type}"/>
+                        <h:outputText value="#{notificationCategorieController.selected.type}" title="#{bundle.ViewNotificationCategorieTitle_type}"/>
+                        <h:outputText value="#{bundle.ViewNotificationCategorieLabel_freelance}"/>
+                        <h:outputText value="#{notificationCategorieController.selected.freelance.nom}" title="#{bundle.ViewNotificationCategorieTitle_freelance}"/>
+                        <h:outputText value="#{bundle.ViewNotificationCategorieLabel_recruteur}"/>
+                        <h:outputText value="#{notificationCategorieController.selected.recruteur.nom}" title="#{bundle.ViewNotificationCategorieTitle_recruteur}"/>
+                        <h:outputText value="#{bundle.ViewNotificationCategorieLabel_notification}"/>
+                        <h:outputText value="#{notificationCategorieController.selected.notification.text}" title="#{bundle.ViewNotificationCategorieTitle_notification}"/>
+                        <h:outputText value="#{bundle.ViewNotificationCategorieLabel_admin}"/>
+                        <h:outputText value="#{notificationCategorieController.selected.admin.nom}" title="#{bundle.ViewNotificationCategorieTitle_admin}"/>
+                       
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="NotificationCategorieViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

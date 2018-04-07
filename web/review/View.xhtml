@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ReviewViewDlg" widgetVar="ReviewViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewReviewTitle}">
+            <h:form id="ReviewViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{reviewController.selected != null}">
+                        <h:outputText value="#{bundle.ViewReviewLabel_score}"/>
+                        <h:outputText value="#{reviewController.selected.score}" title="#{bundle.ViewReviewTitle_score}"/>
+                        <h:outputText value="#{bundle.ViewReviewLabel_commentaire}"/>
+                        <h:outputText value="#{reviewController.selected.commentaire}" title="#{bundle.ViewReviewTitle_commentaire}"/>
+                        <h:outputText value="#{bundle.ViewReviewLabel_mission}"/>
+                        <h:outputText value="#{reviewController.selected.mission.titre}" title="#{bundle.ViewReviewTitle_mission}"/>
+                        <h:outputText value="#{bundle.ViewReviewLabel_freelance}"/>
+                        <h:outputText value="#{reviewController.selected.freelance.nom}" title="#{bundle.ViewReviewTitle_freelance}"/>
+                      
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ReviewViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

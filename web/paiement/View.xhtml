@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PaiementViewDlg" widgetVar="PaiementViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPaiementTitle}">
+            <h:form id="PaiementViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{paiementController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPaiementLabel_montant}"/>
+                        <h:outputText value="#{paiementController.selected.montant}" title="#{bundle.ViewPaiementTitle_montant}"/>
+                        <h:outputText value="#{bundle.ViewPaiementLabel_compte}"/>
+                        <h:outputText value="#{paiementController.selected.compte.id}" title="#{bundle.ViewPaiementTitle_compte}"/>
+                        <h:outputText value="#{bundle.ViewPaiementLabel_admin}"/>
+                        <h:outputText value="#{paiementController.selected.admin.nom}" title="#{bundle.ViewPaiementTitle_admin}"/>
+                   <h:outputText value="#{bundle.ViewPaiementLabel_freelance}"/>
+                        <h:outputText value="#{paiementController.selected.freelance.nom}" title="#{bundle.ViewPaiementTitle_freelance}"/>
+                   <h:outputText value="#{bundle.ViewPaiementLabel_recruteur}"/>
+                        <h:outputText value="#{paiementController.selected.recruteur.nom}" title="#{bundle.ViewPaiementTitle_recruteur}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PaiementViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

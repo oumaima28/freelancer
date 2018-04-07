@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Inscription</title>
+        <link rel="stylesheet" href="../resources/vendors/css/bootstrap.css"/>
+        <link rel="stylesheet" href="../resources/css/bootstrap.min.css"/>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+
+
+            <ui:define name="title">
+                <h:outputText value="#{bundle.ListCompteTitle}"></h:outputText>
+            </ui:define>
+
+            <ui:define name="body">
+                <h:form id="formid" class="col-lg-offset-4 form-group">
+                    <p:panel header="Inscription" class="panel page-header panel-primary">
+                        <p:panelGrid id="grid" columns="2">
+                            <p:outputLabel value="Nom:" for="nom"/>
+                            <p:inputText id="nom" value="#{userController.nom}" class="form-control"/>
+                            <p:outputLabel value="Prenom:" for="prenom"/>
+                            <p:inputText id="prenom" value="#{userController.prenom}" class="form-control"/>
+                            <p:outputLabel value="Tel:" for="tel"/>
+                            <p:inputText id="tel" value="#{userController.tel}" class="form-control"/>
+                            <p:outputLabel value="Pays:" for="pays"/>
+                            <p:selectOneMenu id="pays" value="#{userController.pays}">
+                                <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                                <f:selectItems value="#{paysController.itemsAvailableSelectOne}" var="paysItem"
+                                               itemValue="#{paysItem}" itemLabel="#{paysItem.nom}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Email/Login:" for="login"/>
+                            <p:inputText id="login" value="#{userController.selected.login}" class="form-control"/>
+                            <p:outputLabel value="Role:" for="role"/>
+                            <p:selectOneRadio id="role" value="#{userController.role}">
+                                <f:selectItem itemLabel="Freelancer" itemValue="f"/>
+                                <f:selectItem itemLabel="Recruteur" itemValue="r"/>
+                                <p:ajax update=":formid:freelancer" event="change"/>
+                            </p:selectOneRadio>
+
+                            <p:panelGrid id="freelancer" columns="2" rendered="#{userController.role=='f'}">
+                                <p:outputLabel value="#{bundle.CreateFreelanceLabel_tarif}" for="tarif" />
+                                <p:inputText id="tarif" value="#{userController.freelance.tarif}" title="#{bundle.CreateFreelanceTitle_tarif}" />
+                                <p:outputLabel value="#{bundle.CreateFreelanceLabel_devise}" for="devise" />
+                                <p:selectOneMenu id="devise" value="#{userController.freelance.devise}" >
+                                    <f:selectItems value="#{deviseController.itemsAvailableSelectOne}"
+                                                   var="deviseItem"
+                                                   itemValue="#{deviseItem}" itemLabel="#{deviseItem.nom}"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="#{bundle.CreateFreelanceLabel_diplome}" for="diplome" />
+                                <p:selectOneMenu id="diplome" value="#{userController.freelance.diplome}" >
+                                    <f:selectItems value="#{diplomeController.itemsAvailableSelectOne}"
+                                                   var="diplomeItem"
+                                                   itemValue="#{diplomeItem}" itemLabel="#{diplomeItem.nom}"/>
+                                </p:selectOneMenu>
+                            </p:panelGrid><br/>
+                            <p:commandButton actionListener="#{userController.sinscrire()}" value="S'inscrire" class="form-control btn btn-primary"/>
+                        </p:panelGrid>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+
+        <script src="../resources/js/bootstrap.min.js"/>
+        <script src="../resources/js/jquery.min.js"/>
+    </h:body>
+</html>
+

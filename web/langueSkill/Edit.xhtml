@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LangueSkillEditDlg" widgetVar="LangueSkillEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditLangueSkillTitle}">
+            <h:form id="LangueSkillEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{langueSkillController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditLangueSkillLabel_niveau}" for="niveau" />
+                        <p:inputText id="niveau" value="#{langueSkillController.selected.niveau}" title="#{bundle.EditLangueSkillTitle_niveau}" />
+                        <p:outputLabel value="#{bundle.EditLangueSkillLabel_freelance}" for="freelance" />
+                        <p:selectOneMenu id="freelance" value="#{langueSkillController.selected.freelance}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{freelanceController.itemsAvailableSelectOne}"
+                                           var="freelanceItem"
+                                           itemValue="#{freelanceItem}" itemLabel="#{freelanceItem.nom}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditLangueSkillLabel_langue}" for="langue" />
+                        <p:selectOneMenu id="langue" value="#{langueSkillController.selected.langue}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{langueController.itemsAvailableSelectOne}"
+                                           var="langueItem"
+                                           itemValue="#{langueItem}" itemLabel="#{langueItem.nom}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{langueSkillController.update}" value="#{bundle.Save}" update="display,:LangueSkillListForm:datalist,:growl" oncomplete="handleSubmit(args, 'LangueSkillEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="LangueSkillEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

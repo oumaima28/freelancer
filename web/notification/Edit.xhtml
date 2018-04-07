@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="NotificationEditDlg" widgetVar="NotificationEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditNotificationTitle}">
+            <h:form id="NotificationEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{notificationController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditNotificationLabel_text}" for="text" />
+                        <p:inputText id="text" value="#{notificationController.selected.text}" title="#{bundle.EditNotificationTitle_text}" />
+                        <p:outputLabel value="#{bundle.EditNotificationLabel_dateNotification}" for="dateNotification" />
+                        <p:calendar id="dateNotification" pattern="MM/dd/yyyy" value="#{notificationController.selected.dateNotification}" title="#{bundle.EditNotificationTitle_dateNotification}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditNotificationLabel_dateVue}" for="dateVue" />
+                        <p:calendar id="dateVue" pattern="MM/dd/yyyy" value="#{notificationController.selected.dateVue}" title="#{bundle.EditNotificationTitle_dateVue}"  showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{notificationController.update}" value="#{bundle.Save}" update="display,:NotificationListForm:datalist,:growl" oncomplete="handleSubmit(args, 'NotificationEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="NotificationEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

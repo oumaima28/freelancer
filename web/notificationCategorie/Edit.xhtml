@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="NotificationCategorieEditDlg" widgetVar="NotificationCategorieEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditNotificationCategorieTitle}">
+            <h:form id="NotificationCategorieEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{notificationCategorieController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditNotificationCategorieLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{notificationCategorieController.selected.type}" title="#{bundle.EditNotificationCategorieTitle_type}" />
+                        <p:outputLabel value="#{bundle.EditNotificationCategorieLabel_freelance}" for="freelance" />
+                        <p:selectOneMenu id="freelance" value="#{notificationCategorieController.selected.freelance}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{freelanceController.itemsAvailableSelectOne}"
+                                           var="freelanceItem"
+                                           itemValue="#{freelanceItem}"  itemLabel="#{freelanceItem.nom}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditNotificationCategorieLabel_recruteur}" for="recruteur" />
+                        <p:selectOneMenu id="recruteur" value="#{notificationCategorieController.selected.recruteur}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{recruteurController.itemsAvailableSelectOne}"
+                                           var="recruteurItem"
+                                           itemValue="#{recruteurItem}" itemLabel="#{recruteurItem.nom}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditNotificationCategorieLabel_notification}" for="notification" />
+                        <p:selectOneMenu id="notification" value="#{notificationCategorieController.selected.notification}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{notificationController.itemsAvailableSelectOne}"
+                                           var="notificationItem"
+                                           itemValue="#{notificationItem}" itemLabel="#{notificationItem.text}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditNotificationCategorieLabel_admin}" for="admin" />
+                        <p:selectOneMenu id="admin" value="#{notificationCategorieController.selected.admin}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{adminController.itemsAvailableSelectOne}"
+                                           var="adminItem"
+                                           itemValue="#{adminItem}"  itemLabel="#{adminItem.nom}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditNotificationCategorieLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{notificationCategorieController.selected.id}" title="#{bundle.EditNotificationCategorieTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{notificationCategorieController.update}" value="#{bundle.Save}" update="display,:NotificationCategorieListForm:datalist,:growl" oncomplete="handleSubmit(args, 'NotificationCategorieEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="NotificationCategorieEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

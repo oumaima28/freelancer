@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="NotificationViewDlg" widgetVar="NotificationViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewNotificationTitle}">
+            <h:form id="NotificationViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{notificationController.selected != null}">
+                        <h:outputText value="#{bundle.ViewNotificationLabel_text}"/>
+                        <h:outputText value="#{notificationController.selected.text}" title="#{bundle.ViewNotificationTitle_text}"/>
+                        <h:outputText value="#{bundle.ViewNotificationLabel_dateNotification}"/>
+                        <h:outputText value="#{notificationController.selected.dateNotification}" title="#{bundle.ViewNotificationTitle_dateNotification}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewNotificationLabel_dateVue}"/>
+                        <h:outputText value="#{notificationController.selected.dateVue}" title="#{bundle.ViewNotificationTitle_dateVue}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="NotificationViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

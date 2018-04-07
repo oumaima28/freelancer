@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TechnologieSkillCreateDlg" widgetVar="TechnologieSkillCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTechnologieSkillTitle}">
+            <h:form id="TechnologieSkillCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{technologieSkillController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTechnologieSkillLabel_niveau}" for="niveau" />
+                        <p:inputText id="niveau" value="#{technologieSkillController.selected.niveau}" title="#{bundle.CreateTechnologieSkillTitle_niveau}" />
+                        <p:outputLabel value="#{bundle.CreateTechnologieSkillLabel_nbrAnneExper}" for="nbrAnneExper" />
+                        <p:inputText id="nbrAnneExper" value="#{technologieSkillController.selected.nbrAnneExper}" title="#{bundle.CreateTechnologieSkillTitle_nbrAnneExper}" />
+                        <p:outputLabel value="#{bundle.CreateTechnologieSkillLabel_freelance}" for="freelance" />
+                        <p:selectOneMenu id="freelance" value="#{technologieSkillController.selected.freelance}" >
+                            <f:selectItems value="#{freelanceController.itemsAvailableSelectOne}"
+                                           var="freelanceItem"
+                                           itemValue="#{freelanceItem}" itemLabel="#{freelanceItem.nom}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTechnologieSkillLabel_technologie}" for="technologie" />
+                        <p:selectOneMenu id="technologie" value="#{technologieSkillController.selected.technologie}" >
+                            <f:selectItems value="#{technologieController.itemsAvailableSelectOne}"
+                                           var="technologieItem"
+                                           itemValue="#{technologieItem}" itemLabel="#{technologieItem.nom}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{technologieSkillController.create}" value="#{bundle.Save}" update="display,:TechnologieSkillListForm:datalist,:growl" oncomplete="handleSubmit(args,'TechnologieSkillCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TechnologieSkillCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

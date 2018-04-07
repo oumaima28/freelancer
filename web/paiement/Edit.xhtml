@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PaiementEditDlg" widgetVar="PaiementEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPaiementTitle}">
+            <h:form id="PaiementEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{paiementController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditPaiementLabel_montant}" for="montant" />
+                        <p:inputText id="montant" value="#{paiementController.selected.montant}" title="#{bundle.EditPaiementTitle_montant}" />
+                        <p:outputLabel value="#{bundle.EditPaiementLabel_compte}" for="compte" />
+                        <p:selectOneMenu id="compte" value="#{paiementController.selected.compte}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{compteController.itemsAvailableSelectOne}"
+                                           var="compteItem"
+                                           itemValue="#{compteItem}" itemLabel="#{compteItem.id}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditPaiementLabel_admin}" for="admin" />
+                        <p:selectOneMenu id="admin" value="#{paiementController.selected.admin}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{adminController.itemsAvailableSelectOne}"
+                                           var="adminItem"
+                                           itemValue="#{adminItem}" itemLabel="#{adminItem.nom}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditPaiementLabel_freelance}" for="freelance" />
+                        <p:selectOneMenu id="freelance" value="#{paiementController.selected.freelance}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{freelanceController.itemsAvailableSelectOne}"
+                                           var="freelanceItem"
+                                           itemValue="#{freelanceItem}" itemLabel="#{freelanceItem.nom}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditPaiementLabel_recruteur}" for="recruteur" />
+                        <p:selectOneMenu id="recruteur" value="#{paiementController.selected.recruteur}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{recruteurController.itemsAvailableSelectOne}"
+                                           var="recruteurItem"
+                                           itemValue="#{recruteurItem}" itemLabel="#{recruteurItem.nom}"/>
+                        </p:selectOneMenu>
+                       
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{paiementController.update}" value="#{bundle.Save}" update="display,:PaiementListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PaiementEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PaiementEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
